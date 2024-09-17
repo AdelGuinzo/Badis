@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Manage Employees</h1>
+    <ul *ngIf="employees.length > 0">
+      <li *ngFor="let employee of employees">
+        {{ employee.name }} - {{ employee.position }}
+        <button (click)="deleteEmployee(employee.id)">Delete</button>
+      </li>
+    </ul>
+  
+    <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm.value)">
+      <input name="name" ngModel placeholder="Name" required />
+      <input name="position" ngModel placeholder="Position" required />
+      <button type="submit">Add Employee</button>
+    </form>
+  </div>
+  

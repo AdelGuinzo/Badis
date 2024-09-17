@@ -1,0 +1,173 @@
+<div
+  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+  [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
+>
+  <div class="rounded-t mb-0 px-4 py-3 border-0">
+    <div class="flex flex-wrap items-center">
+      <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+        <h3 class="font-semibold text-lg">Machine Tracking</h3>
+      </div>
+    </div>
+  </div>
+  <div class="block w-full overflow-x-auto">
+    <!-- Projects table -->
+    <table class="items-center w-full bg-transparent border-collapse">
+      <thead>
+        <tr>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Machine ID
+          </th>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Type
+          </th>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Status
+          </th>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Channel
+          </th>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          >
+            Completion
+          </th>
+          <th
+            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+            [ngClass]="
+              color === 'light'
+                ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
+                : 'bg-red-800 text-red-300 border-red-700'
+            "
+          ></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through paginatedMachines to display each row -->
+        <tr *ngFor="let machine of paginatedMachines">
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            {{ machine.id }}
+          </td>
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            {{ machine.type }}
+          </td>
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            <i
+              [ngClass]="{
+                'fas fa-circle text-teal-500': machine.status === 'completed'
+              }"
+            ></i>
+            <i
+              [ngClass]="{
+                'fas fa-circle text-orange-500':
+                  machine.status === 'on schedule'
+              }"
+            ></i>
+            <i
+              [ngClass]="{
+                'fas fa-circle text-red-500': machine.status === 'pending'
+              }"
+            ></i>
+            {{ machine.status }}
+          </td>
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            {{ machine.channel }}
+          </td>
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+          >
+            <div class="flex items-center">
+              <span class="mr-2">{{ machine.completion }}%</span>
+              <div class="relative w-full">
+                <div
+                  class="overflow-hidden h-2 text-xs flex rounded"
+                  [ngClass]="{
+                    'bg-red-200': machine.completion <= 60,
+                    'bg-emerald-200':
+                      machine.completion > 60 && machine.completion <= 80,
+                    'bg-teal-200': machine.completion > 80
+                  }"
+                >
+                  <div
+                    [ngClass]="{
+                      'bg-red-500': machine.completion <= 60,
+                      'bg-emerald-500':
+                        machine.completion > 60 && machine.completion <= 80,
+                      'bg-teal-500': machine.completion > 80
+                    }"
+                    style="width: {{ machine.completion }}%"
+                    class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td
+            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+          >
+            <app-table-dropdown></app-table-dropdown>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Pagination controls -->
+  <div class="flex justify-between items-center mt-4">
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-black disabled:opacity-50"
+    >
+      Previous
+    </button>
+
+    <span class="text-sm"> Page {{ currentPage }} of {{ totalPages }} </span>
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 text-black disabled:opacity-50 "
+    >
+      Next
+    </button>
+  </div>
+</div>

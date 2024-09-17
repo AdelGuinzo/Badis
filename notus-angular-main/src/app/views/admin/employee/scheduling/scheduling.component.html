@@ -1,0 +1,60 @@
+<div class="container mt-5">
+    <h2>Machine Scheduling</h2>
+  
+    <!-- Form for scheduling a machine -->
+    <form (submit)="scheduleMachine()">
+      <!-- Select machine -->
+      <div class="form-group">
+        <label for="machineSelect">Select Machine:</label>
+        <select class="form-control" id="machineSelect" [(ngModel)]="selectedMachine" name="selectedMachine" required>
+          <option *ngFor="let machine of machines" [value]="machine.id">{{ machine.name }}</option>
+        </select>
+      </div>
+  
+      <!-- Select date -->
+      <div class="form-group">
+        <label for="scheduleDate">Select Date:</label>
+        <input type="date" class="form-control" id="scheduleDate" [(ngModel)]="scheduleDate" name="scheduleDate" required>
+      </div>
+  
+      <!-- Select time -->
+      <div class="form-group">
+        <label for="scheduleTime">Select Time:</label>
+        <input type="time" class="form-control" id="scheduleTime" [(ngModel)]="scheduleTime" name="scheduleTime" required>
+      </div>
+  
+      <!-- Machine availability -->
+      <div class="form-group mt-3">
+        <label>Machine Availability:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="availability" id="available" value="available" [(ngModel)]="machineAvailability" required>
+          <label class="form-check-label" for="available">
+            Available
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="availability" id="notAvailable" value="notAvailable" [(ngModel)]="machineAvailability" required>
+          <label class="form-check-label" for="notAvailable">
+            Not Available
+          </label>
+        </div>
+      </div>
+  
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-3">Schedule Machine</button>
+    </form>
+  
+    <!-- Show scheduled machines -->
+    <div class="mt-5">
+      <h4>Scheduled Machines</h4>
+      <ul class="list-group">
+        <li *ngFor="let schedule of schedules" class="list-group-item">
+          Machine: {{ schedule.machineName }} <br>
+          Date: {{ schedule.date }} <br>
+          Time: {{ schedule.time }} <br>
+          Status: {{ schedule.availability === 'available' ? 'Available' : 'Not Available' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  

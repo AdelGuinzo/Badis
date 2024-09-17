@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Manage Clients</h1>
+    <ul *ngIf="clients.length > 0">
+      <li *ngFor="let client of clients">
+        {{ client.name }} - {{ client.company }}
+        <button (click)="deleteClient(client.id)">Delete</button>
+      </li>
+    </ul>
+  
+    <form #clientForm="ngForm" (ngSubmit)="addClient(clientForm.value)">
+      <input name="name" ngModel placeholder="Name" required />
+      <input name="company" ngModel placeholder="Company" required />
+      <button type="submit">Add Client</button>
+    </form>
+  </div>
+    
